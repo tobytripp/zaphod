@@ -22,6 +22,7 @@ Gem::Specification.new do |spec|
   spec.rubyforge_project = "matron"
 
   spec.add_dependency "grit", "~> 2.5.0"
+  spec.add_dependency "simplecov", "~> 0.7.1"
 
   spec.add_development_dependency "rake",  "~> 10.0.3"
   spec.add_development_dependency "rspec", "~> 2.12.0"

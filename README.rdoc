@@ -1,3 +1,5 @@
 = Matron
 
+== You Will Not Commit Untested Code!
+
 Catch, and publicly embarrass, untested commits into git.
