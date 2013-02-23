@@ -26,4 +26,11 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "rake",  "~> 10.0.3"
   spec.add_development_dependency "rspec", "~> 2.12.0"
+  spec.add_development_dependency "pry"
+  spec.add_development_dependency "guard", "~> 1.6.2"
+  spec.add_development_dependency "guard-rspec", "~> 2.4.0"
+  spec.add_development_dependency "guard-bundler"
+  spec.add_development_dependency "guard-shell"
+  spec.add_development_dependency "rb-fsevent"
+  spec.add_development_dependency 'rb-readline'
 end

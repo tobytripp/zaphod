@@ -17,3 +17,6 @@ end
 # with a set from the last git commit.  Blow up and send an email if
 # the intersection reveals lines in the current commit that are
 # uncovered.
+#
+# Aborting with a non-zero exit code should propagate properly through
+# SimpleCov.
