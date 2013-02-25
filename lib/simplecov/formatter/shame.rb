@@ -5,15 +5,10 @@ module SimpleCov
       end
 
       def format( result )
-#        pp "===== RESULT:", result
-        result.files.each do |source_file|
-#          pp source_file, source_file.missed_lines
-#          pp source_file.lines.map( &:coverage )
-#          pp source_file.missed_lines.map &:src
-        end
+        changeset = uncovered result
       end
 
-      def changes( result )
+      def uncovered( result )
         result.files.map do |source_file|
           Matron::CodeSet.new(
             source_file.filename,

@@ -17,9 +17,9 @@ module Matron
     end
 
     def additions_from( diff )
-      diff.lines.select { |l| addition? l }.map { |l|
-        l.gsub /^[+]/, ""
-      }
+      diff.lines.
+        select { |l| addition? l }.
+        map    { |l| l.gsub /^[+]/, "" }
     end
 
     def addition?( line )

@@ -9,14 +9,23 @@ describe SimpleCov::Formatter::Shame do
       )
   end
 
-  describe "#format" do
-    it do
-      subject.format result
+  describe "#format( result )" do
+
+    it "gets the current changes from git"
+    it "compares the changes to the uncovered code"
+
+    context "when the uncovered lines include the current changes" do
+      it "exits with an error"
+      it "sends an email"
+    end
+
+    context "when the uncovered lines do not include the current changes" do
+      it "proceeds normally"
     end
   end
 
-  describe "#changes" do
-    subject { described_class.new.changes result }
+  describe "#uncovered( result )" do
+    subject { described_class.new.uncovered result }
 
     it { should be_an_instance_of Array }
     it { should_not be_empty }
