@@ -3,3 +3,15 @@
 == You Will Not Commit Untested Code!
 
 Catch, and publicly embarrass, untested commits into git.
+
+
+== Installation
+
+    require 'simplecov-shame'
+
+    SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+      SimpleCov::Formatter::HTMLFormatter,  # Optional, I suppose
+      SimpleCov::Formatter::Shame
+    ]
+
+    SimpleCov.start

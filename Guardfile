@@ -13,5 +13,8 @@ guard 'rspec' do
 end
 
 guard 'shell' do
-  watch( %r{^lib/.+\.rb$} ) { `ctags -R -e lib` }
+  watch( %r{^lib/.+\.rb$} ) {
+    `ctags -R -e lib`
+    `emacsclient --eval "(visit-tags-table tags-file-name)"`
+  }
 end

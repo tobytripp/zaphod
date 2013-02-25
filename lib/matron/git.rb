@@ -10,11 +10,20 @@ module Matron
 
     def changes()
       head = repo.commits.first
+
       head.diffs.map do |diff|
-        diff.diff.lines.map do |line|
-          [diff.b_path, line]
-        end
-      end.flatten 1
+        CodeSet.new diff.b_path, additions_from( diff.diff )
+      end
+    end
+
+    def additions_from( diff )
+      diff.lines.select { |l| addition? l }.map { |l|
+        l.gsub /^[+]/, ""
+      }
+    end
+
+    def addition?( line )
+      line =~ /^[+][^+]/
     end
   end
 end

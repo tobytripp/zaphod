@@ -20,17 +20,27 @@ describe Matron::Git do
 
     let( :git )          { described_class.new repository }
 
-    it "returns a list of file:change tuples" do
+    it "returns a list of CodeSets" do
       git.changes.should be_an_instance_of( Array )
       git.changes.should_not be_empty
 
       git.changes.each do |change|
-        File.exist?( change.first ).should be_true
+        File.exist?( change.path ).should be_true
       end
     end
 
-    it "generates a row for each addition of the diff" do
-      git.changes.length.should eq DIFF.lines.to_a.size
+    it "generates a row for each file in the diff" do
+      git.changes.length.should eq 1
+    end
+
+    it "passes the additions to each code set" do
+      git.changes.first.source.length.should eq(
+        DIFF.lines.select { |l| l =~ /^[+][^+]/ }.to_a.size
+        )
+    end
+
+    it "strips the plusses off the lines" do
+      git.changes.first.source.first.should_not start_with( "+" )
     end
   end
 
