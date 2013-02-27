@@ -6,6 +6,7 @@ describe Matron::Git do
     File.expand_path( File.join __FILE__, "..", ".." )
     )
 
+
   describe "#initialize" do
     it "accepts a repository" do
       described_class.new Grit::Repo.new REPO_PATH
@@ -13,29 +14,30 @@ describe Matron::Git do
   end
 
   describe "#changes", integrated: true do
-    let( :first_commit ) { stub diffs: [last_diff] }
-    let( :commits )      { [first_commit] }
-    let( :repository )   { stub commits: commits }
-    let( :last_diff )    { stub diff: DIFF, b_path: "spec/spec_helper.rb" }
+    let( :patch )        { DIFF }
+    let( :git_native )   { stub diff_index: patch }
+    let( :repository )   { stub git: git_native }
 
     let( :git )          { described_class.new repository }
+
+    let( :diffs ) { DIFF.split( /^diff --git.*$/ ).tap { |d| d.shift } }
 
     it "returns a list of CodeSets" do
       git.changes.should be_an_instance_of( Array )
       git.changes.should_not be_empty
 
       git.changes.each do |change|
-        File.exist?( change.path ).should be_true
+        File.exist?( change.path ).should be_true, change.path
       end
     end
 
     it "generates a row for each file in the diff" do
-      git.changes.length.should eq 1
+      git.changes.length.should eq 2
     end
 
     it "passes the additions to each code set" do
       git.changes.first.source.length.should eq(
-        DIFF.lines.select { |l| l =~ /^[+][^+]/ }.to_a.size
+        diffs.first.lines.select { |l| l =~ /^[+][^+]/ }.to_a.size
         )
     end
 
@@ -46,6 +48,7 @@ describe Matron::Git do
 
 
   DIFF = <<-EOS
+diff --git /dev/null b/spec/spec_helper.rb
 --- /dev/null
 +++ b/spec/spec_helper.rb
 @@ -1 +1,29 @@
@@ -77,6 +80,30 @@ describe Matron::Git do
 +  #     --seed 1234
 +  config.order = 'random'
 +end
-...
+diff --git a/spec/matron/git_spec.rb b/spec/matron/git_spec.rb
+index 73d4e77..8ef378d 100644
+--- a/spec/matron/git_spec.rb
++++ b/spec/matron/git_spec.rb
+@@ -6,6 +6,7 @@ describe Matron::Git do
+     File.expand_path( File.join __FILE__, "..", ".." )
+     )
+
++
+   describe "#initialize" do
+     it "accepts a repository" do
+       described_class.new Grit::Repo.new REPO_PATH
+@@ -13,10 +14,9 @@ describe Matron::Git do
+   end
+
+   describe "#changes", integrated: true do
+-    let( :first_commit ) { stub diffs: [last_diff] }
+-    let( :commits )      { [first_commit] }
+-    let( :repository )   { stub commits: commits }
+-    let( :last_diff )    { stub diff: DIFF, b_path: "spec/spec_helper.rb" }
++    let( :patch )        { DIFF }
++    let( :git_native )   { stub diff_index: patch }
++    let( :repository )   { stub git: git_native }
+
+     let( :git )          { described_class.new repository }
   EOS
 end

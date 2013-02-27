@@ -9,10 +9,13 @@ module Matron
     end
 
     def changes()
-      head = repo.commits.first
+      # TODO: extract git-specific commands to another class
+      diffs = repo.git.diff_index( { p: true }, "HEAD" ).
+        split /^diff --git .* b(.*)$/
+      diffs = diffs.drop_while &:empty?
 
-      head.diffs.map do |diff|
-        CodeSet.new diff.b_path, additions_from( diff.diff )
+      Hash[*diffs].map do |path, diff|
+        CodeSet.new File.expand_path( ".#{path}" ), additions_from( diff )
       end
     end
 
