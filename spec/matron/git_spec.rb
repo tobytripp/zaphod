@@ -1,51 +1,27 @@
 require 'spec_helper'
-require 'pp'
+require 'matron/git'
 
 describe Matron::Git do
-  REPO_PATH = File.dirname(
-    File.expand_path( File.join __FILE__, "..", ".." )
-    )
+  let( :git  ) { double diff_index: DIFF }
+  let( :grit ) { double git: git }
 
+  subject { described_class.new grit }
 
-  describe "#initialize" do
-    it "accepts a repository" do
-      described_class.new Grit::Repo.new REPO_PATH
-    end
-  end
+  describe "to get current changes in the git repository" do
+    it "calls :diff_index on the Grit git object" do
+      git.should_receive( :diff_index ).
+        with( { p: true }, "HEAD" )
 
-  describe "#changes", integrated: true do
-    let( :patch )        { DIFF }
-    let( :git_native )   { stub diff_index: patch }
-    let( :repository )   { stub git: git_native }
-
-    let( :git )          { described_class.new repository }
-
-    let( :diffs ) { DIFF.split( /^diff --git.*$/ ).tap { |d| d.shift } }
-
-    it "returns a list of CodeSets" do
-      git.changes.should be_an_instance_of( Array )
-      git.changes.should_not be_empty
-
-      git.changes.each do |change|
-        File.exist?( change.path ).should be_true, change.path
-      end
+      subject.diff
     end
 
-    it "generates a row for each file in the diff" do
-      git.changes.length.should eq 2
-    end
-
-    it "passes the additions to each code set" do
-      git.changes.first.source.length.should eq(
-        diffs.first.lines.select { |l| l =~ /^[+][^+]/ }.to_a.size
+    it "returns the patch split into a Hash of file => patch sets" do
+      subject.diff.keys.should include(
+        "./spec/spec_helper.rb",
+        "./spec/matron/source_control_spec.rb"
         )
     end
-
-    it "strips the plusses off the lines" do
-      git.changes.first.source.first.should_not start_with( "+" )
-    end
   end
-
 
   DIFF = <<-EOS
 diff --git /dev/null b/spec/spec_helper.rb
@@ -80,10 +56,10 @@ diff --git /dev/null b/spec/spec_helper.rb
 +  #     --seed 1234
 +  config.order = 'random'
 +end
-diff --git a/spec/matron/git_spec.rb b/spec/matron/git_spec.rb
+diff --git a/spec/matron/source_control_spec.rbf b/spec/matron/source_control_spec.rb
 index 73d4e77..8ef378d 100644
---- a/spec/matron/git_spec.rb
-+++ b/spec/matron/git_spec.rb
+--- a/spec/matron/source_control_spec.rb
++++ b/spec/matron/source_control_spec.rb
 @@ -6,6 +6,7 @@ describe Matron::Git do
      File.expand_path( File.join __FILE__, "..", ".." )
      )
