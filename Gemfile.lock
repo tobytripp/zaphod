@@ -41,6 +41,7 @@ GEM
     rake (10.0.3)
     rb-fsevent (0.9.1)
     rb-readline (0.4.2)
+    rr (1.0.4)
     rspec (2.12.0)
       rspec-core (~> 2.12.0)
       rspec-expectations (~> 2.12.0)
@@ -70,4 +71,5 @@ DEPENDENCIES
   rake (~> 10.0.3)
   rb-fsevent
   rb-readline
+  rr (~> 1.0.4)
   rspec (~> 2.12.0)

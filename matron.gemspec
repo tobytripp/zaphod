@@ -5,7 +5,7 @@ Gem::Specification.new do |spec|
   spec.name = "matron"
   spec.version = Matron::VERSION
 
-  spec.authors = ["Toby Tripp"]
+  spec.authors  = ["Toby Tripp"]
   spec.email    = %q{toby.tripp+gems@gmail.com}
   spec.homepage = %q{http://github.com/tobytripp/matron}
 
@@ -25,6 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "simplecov", "~> 0.7.1"
 
   spec.add_development_dependency "rake",  "~> 10.0.3"
+  spec.add_development_dependency "rr",    "~> 1.0.4"
   spec.add_development_dependency "rspec", "~> 2.12.0"
   spec.add_development_dependency "pry"
   spec.add_development_dependency "guard", "~> 1.6.2"

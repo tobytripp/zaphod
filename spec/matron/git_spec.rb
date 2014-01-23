@@ -2,15 +2,14 @@ require 'spec_helper'
 require 'matron/git'
 
 describe Matron::Git do
-  let( :git  ) { double diff_index: DIFF }
-  let( :grit ) { double git: git }
+  let( :git  ) { stub!.diff_index { DIFF }.subject }
+  let( :grit ) { stub!.git { git }.subject }
 
   subject { described_class.new grit }
 
   describe "to get current changes in the git repository" do
     it "calls :diff_index on the Grit git object" do
-      git.should_receive( :diff_index ).
-        with( { p: true }, "HEAD" )
+      mock( git ).diff_index({ p: true }, "HEAD") { DIFF }
 
       subject.diff
     end

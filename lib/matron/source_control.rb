@@ -9,15 +9,15 @@ module Matron
     end
 
     def changes()
-      repo.diff.map do |path, diff|
-        CodeSet.new File.expand_path( path ), additions_from( diff.lines )
-      end
+      ChangeSet.new repo.diff.map { |path, diff|
+        CodeChange.new File.expand_path( path ), additions_from( diff.lines )
+      }
     end
 
     def additions_from( lines )
       lines.
         select { |l| addition? l }.
-        map    { |l| l.gsub /^[+]/, "" }
+        map    { |l| l.gsub( /^[+]/, "" ) }
     end
 
     def addition?( line )

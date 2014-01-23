@@ -10,7 +10,7 @@ module Matron
 
     def diff()
       diffs = repo.git.diff_index( { p: true }, "HEAD" ).
-        split /^diff --git .* b(.*)$/
+        split( /^diff --git .* b(.*)$/ )
 
       as_hash diffs
     end
@@ -18,7 +18,7 @@ module Matron
     protected
 
     def as_hash( diff )
-      diffs = diff.drop_while &:empty?
+      diffs = diff.drop_while( &:empty? )
       relativize_paths Hash[*diffs]
     end
 

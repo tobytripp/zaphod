@@ -6,7 +6,6 @@ describe Matron::SourceControl do
     File.expand_path( File.join __FILE__, "..", ".." )
     )
 
-
   describe "#initialize" do
     it "accepts a repository" do
       described_class.new Grit::Repo.new REPO_PATH
@@ -20,12 +19,12 @@ describe Matron::SourceControl do
         "./spec/matron/source_control_spec.rb" => "+ require 'spec_helper'\n"
       }
     end
-    let( :repository )   { stub diff: patch_map }
+    let( :repository )   { stub!.diff { patch_map }.subject }
 
     subject { described_class.new repository }
 
-    it "returns a list of CodeSets" do
-      subject.changes.should be_an_instance_of( Array )
+    it do
+      subject.changes.should be_an_instance_of( Matron::ChangeSet )
       subject.changes.should_not be_empty
 
       subject.changes.each do |change|

@@ -1,3 +1,5 @@
+require "matron/change_set"
+
 module SimpleCov
   module Formatter
     class Shame
@@ -5,16 +7,22 @@ module SimpleCov
       end
 
       def format( result )
-        changeset = uncovered result
+        uncovered_codeset = uncovered result
+        changed_codeset   =
+          Matron::SourceControl.new( Grit::Repo.new( Dir.pwd ) ).changes
+
+        unless uncovered_codeset.intersection( changed_codeset ).empty?
+          raise SystemExit.new( -1 )
+        end
       end
 
       def uncovered( result )
-        result.files.map do |source_file|
-          Matron::CodeSet.new(
+        Matron::ChangeSet.new result.files.map { |source_file|
+          Matron::CodeChange.new(
             source_file.filename,
             source_file.missed_lines.map( &:src )
             )
-        end
+        }
       end
     end
   end
