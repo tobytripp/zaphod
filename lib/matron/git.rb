@@ -3,17 +3,19 @@ require 'grit'
 module Matron
   class Git
     attr_reader :repo
+    attr_accessor :diff_against
 
     def self.from_path( path )
       new Grit::Repo.new( path )
     end
 
-    def initialize( repository )
+    def initialize( repository, diff_against="HEAD" )
       @repo = repository
+      @diff_against = diff_against
     end
 
     def diff()
-      diffs = repo.git.diff_index( { p: true }, "HEAD" ).
+      diffs = repo.git.diff_index( { p: true }, diff_against ).
         split( /^diff --git .* b(.*)$/ )
 
       as_hash diffs
