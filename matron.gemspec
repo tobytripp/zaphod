@@ -21,15 +21,15 @@ Gem::Specification.new do |spec|
 
   spec.rubyforge_project = "simplecov-shame"
 
-  spec.add_dependency "grit", "~> 2.5.0"
-  spec.add_dependency "simplecov", "~> 0.7.1"
+  spec.add_dependency "grit",      "~> 2.5"
+  spec.add_dependency "simplecov", "~> 0.8"
 
-  spec.add_development_dependency "rake",  "~> 10.0.3"
-  spec.add_development_dependency "rr",    "~> 1.0.4"
-  spec.add_development_dependency "rspec", "~> 2.14.1"
+  spec.add_development_dependency "rake",  "~> 10.1"
+  spec.add_development_dependency "rr",    "~> 1.1"
+  spec.add_development_dependency "rspec", "~> 2.14"
   spec.add_development_dependency "pry"
-  spec.add_development_dependency "guard", "~> 2.3.0"
-  spec.add_development_dependency "guard-rspec", "~> 4.2.4"
+  spec.add_development_dependency "guard", "~> 2.3"
+  spec.add_development_dependency "guard-rspec", "~> 4.2"
   spec.add_development_dependency "guard-bundler"
   spec.add_development_dependency "guard-shell"
   spec.add_development_dependency "rb-fsevent"
