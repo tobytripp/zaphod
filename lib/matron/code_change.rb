@@ -7,11 +7,17 @@ module Matron
     end
 
     def eql?( other )
-      path.eql?( other.path ) && source.eql?( other.source )
+      return false if source.empty?
+      path.eql?( other.path ) &&
+        !(source & other.source ).empty?
     end
 
     def hash()
       [path, source].hash
+    end
+
+    def inspect()
+      "<#{self.class.name} #{path}>\n" + source.join( "\n" )
     end
   end
 end

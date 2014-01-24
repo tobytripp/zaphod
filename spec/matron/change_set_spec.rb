@@ -7,8 +7,8 @@ module Matron
   describe ChangeSet do
     let( :changes ) do
       [
-        Matron::CodeChange.new( "/dev/null" ),
-        Matron::CodeChange.new( "/dev/null" ),
+        Matron::CodeChange.new( "/dev/null", ["stuff"] ),
+        Matron::CodeChange.new( "/dev/null", ["stuff"] ),
       ]
     end
 
@@ -40,20 +40,19 @@ module Matron
     describe "#intersection" do
       let( :set1 ) do
         described_class.new([
-            CodeChange.new( "/dev/null" ),
+            CodeChange.new( "/dev/null", ["baz"] ),
             CodeChange.new( "./lib/matron/spike.rb", ["+ foo"] )
           ])
       end
       let( :set2 ) do
         described_class.new([
-            CodeChange.new( "/dev/null" )
+            CodeChange.new( "/dev/null", ["baz"] )
           ])
       end
 
-
       it do
         expect( set1.intersection( set2 ) ).
-          to eq( Set.new([ CodeChange.new( "/dev/null" ) ]) )
+          to eq( Set.new([ CodeChange.new( "/dev/null", ["baz"] ) ]) )
       end
     end
   end

@@ -1,8 +1,12 @@
-require 'grit'
+require "matron/git"
 
 module Matron
   class SourceControl
     attr_reader :repo
+
+    def self.git( path )
+      new Git.from_path( path )
+    end
 
     def initialize( repository )
       @repo = repository

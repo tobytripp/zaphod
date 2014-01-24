@@ -2,14 +2,24 @@ require "matron/change_set"
 
 module SimpleCov
   module Formatter
+    # Send a set of File:Line tuples to a Matron class that intersects
+    # it with a set from the last git commit. Blow up and send an
+    # email if the intersection reveals lines in the current commit
+    # that are uncovered.
+    #
+    # Aborting with a non-zero exit code should propagate properly
+    # through SimpleCov.
+    #
     class Shame
+      attr_accessor :source_control
+
       def initialize()
+        @source_control = Matron::SourceControl.git Dir.pwd
       end
 
       def format( result )
         uncovered_codeset = uncovered result
-        changed_codeset   =
-          Matron::SourceControl.new( Grit::Repo.new( Dir.pwd ) ).changes
+        changed_codeset   = source_control.changes
 
         unless uncovered_codeset.intersection( changed_codeset ).empty?
           raise SystemExit.new( -1 )
@@ -27,11 +37,3 @@ module SimpleCov
     end
   end
 end
-
-# Send a set of File:Line tuples to a Matron class that intersects it
-# with a set from the last git commit.  Blow up and send an email if
-# the intersection reveals lines in the current commit that are
-# uncovered.
-#
-# Aborting with a non-zero exit code should propagate properly through
-# SimpleCov.

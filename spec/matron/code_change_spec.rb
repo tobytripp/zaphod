@@ -17,20 +17,44 @@ module Matron
     end
 
     describe "#eql?" do
-      let( :change1 ) { CodeChange.new ".lib/matron/spike.rb" }
-
       context "when the paths and source are equal" do
+        let( :change1 ) { CodeChange.new ".lib/matron/spike.rb", ["foo"] }
+        let( :change2 ) { CodeChange.new ".lib/matron/spike.rb", ["foo"] }
+
+        it( "is true" ) { expect( change1 ).to eql( change2 ) }
+      end
+
+      context "when the source list is empty" do
+        let( :change1 ) { CodeChange.new ".lib/matron/spike.rb" }
         let( :change2 ) { CodeChange.new ".lib/matron/spike.rb" }
-        it { expect( change1 ).to eql( change2 ) }
+
+        it( "is not true" ) { expect( change1 ).to_not eql( change2 ) }
       end
 
       context "when the sources differ" do
-        let( :change3 ) { CodeChange.new ".lib/matron/spike.rb", ["+foo"] }
-        it { expect( change1 ).to_not eql( change3 ) }
+        let( :change1 ) { CodeChange.new ".lib/matron/spike.rb", ["bar"] }
+        let( :change3 ) { CodeChange.new ".lib/matron/spike.rb", ["foo"] }
+
+        it( "is not true" ) { expect( change1 ).to_not eql( change3 ) }
       end
 
       context "when the sources overlap" do
+        let( :change1 ) do
+          CodeChange.new "./lib/matron/spike.rb", [
+            "require 'foo'",
+            "Foo.bar!"
+          ]
+        end
 
+        let( :change2 ) do
+          CodeChange.new "./lib/matron/spike.rb", [
+            "require 'foo'",
+            "Foo.bar!",
+            "Bar.baz"
+          ]
+        end
+
+        it( "is true" ) { expect( change1 ).to eql( change2 ) }
       end
     end
 

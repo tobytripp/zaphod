@@ -9,38 +9,16 @@ describe SimpleCov::Formatter::Shame do
       )
   end
 
-  let( :diff ) do
-    {
-      "./spec/spec_helper.rb" => "+ require 'rspec'\n",
-      "./spec/matron/source_control_spec.rb" => "+ require 'spec_helper'\n"
-    }
-  end
-
-  let( :repository ) do
-    stub( Object.new )
-  end
-
-  def source_control
-    Matron::SourceControl.new repository
-  end
+  let!( :source_control ) { Object.new }
 
   before :each do
-    sc = source_control
-    stub( Grit::Repo ).new { repository }
-    stub( Matron::SourceControl ).new { sc }
-
-    stub( repository ).diff { diff }
+    stub( Matron::SourceControl ).git { source_control }
+    stub( source_control ).changes { Matron::ChangeSet.new([]) }
   end
 
   describe "#format( result )" do
-    it "instantiates SourceControl with the current repository path" do
-      mock( Grit::Repo ).new( Dir.pwd ) { repository }
-      subject.format result
-    end
-
     it "gets the current changes from source control" do
-      sc = source_control
-      mock( Matron::SourceControl ).new( anything ) { sc }
+      mock( Matron::SourceControl ).git( Dir.pwd ) { source_control }
       subject.format result
     end
 
@@ -56,7 +34,6 @@ describe SimpleCov::Formatter::Shame do
       end
 
       it "exits with an error" do
-        pp source_changes, subject.uncovered( result )
         expect {
           subject.format result
         }.to raise_error( SystemExit )

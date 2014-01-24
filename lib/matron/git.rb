@@ -4,6 +4,10 @@ module Matron
   class Git
     attr_reader :repo
 
+    def self.from_path( path )
+      new Grit::Repo.new( path )
+    end
+
     def initialize( repository )
       @repo = repository
     end

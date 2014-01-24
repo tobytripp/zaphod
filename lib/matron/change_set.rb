@@ -1,4 +1,5 @@
 require "forwardable"
+require "set"
 
 module Matron
   class ChangeSet
