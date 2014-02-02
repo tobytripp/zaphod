@@ -33,13 +33,16 @@ describe SimpleCov::Formatter::Shame do
         stub( source_control ).changes { source_changes }
       end
 
-      it "exits with an error" do
-        expect {
-          subject.format result
-        }.to raise_error( SystemExit )
-      end
+      it "runs the configured on_failure action, passing uncovered changes" do
+        failed = false
+        Matron.configure do |config|
+          config.on_failure { |diff| failed = diff }
+        end
 
-      it "sends an email"
+        subject.format result
+
+        expect( failed ).to eq( source_changes.changes )
+      end
     end
 
     context "when the uncovered lines do not include the current changes" do

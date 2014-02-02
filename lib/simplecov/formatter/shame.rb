@@ -21,8 +21,9 @@ module SimpleCov
         uncovered_codeset = uncovered result
         changed_codeset   = source_control.changes
 
-        unless uncovered_codeset.intersection( changed_codeset ).empty?
-          raise SystemExit.new( -1 )
+        diff = uncovered_codeset.intersection( changed_codeset )
+        unless diff.empty?
+          Matron.configuration.on_failure.call diff
         end
       end
 

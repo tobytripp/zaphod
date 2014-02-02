@@ -22,6 +22,7 @@ Gem::Specification.new do |spec|
   spec.rubyforge_project = "simplecov-shame"
 
   spec.add_dependency "grit",      "~> 2.5"
+  spec.add_dependency "pony",      "~> 1.6"
   spec.add_dependency "simplecov", "~> 0.8"
 
   spec.add_development_dependency "rake",  "~> 10.1"
