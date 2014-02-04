@@ -22,12 +22,12 @@ describe Zaphod do
   end
 
   describe ".setup" do
-    it "sets the SimpleCov formatter to include the Shame formatter" do
+    it "sets the SimpleCov formatter to include the Zaphod formatter" do
       Zaphod.setup
 
       expected_formatters = [
         SimpleCov::Formatter::HTMLFormatter,
-        SimpleCov::Formatter::Shame
+        SimpleCov::Formatter::ZaphodFormatter
       ]
 
       expect( SimpleCov.formatter.new.formatters ).to eq( expected_formatters )

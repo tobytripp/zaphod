@@ -1,8 +1,8 @@
 require "spec_helper"
 
-require 'simplecov/formatter/shame'
+require 'simplecov/formatter/zaphod_formatter'
 
-describe SimpleCov::Formatter::Shame do
+describe SimpleCov::Formatter::ZaphodFormatter do
   let( :result ) do
     SimpleCov::Result.new(
       File.expand_path( "./lib/zaphod/spike.rb" ) => [1, 1, 1, 0, nil, nil, nil]

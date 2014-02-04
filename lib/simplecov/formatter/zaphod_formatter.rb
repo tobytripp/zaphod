@@ -10,7 +10,7 @@ module SimpleCov
     # Aborting with a non-zero exit code should propagate properly
     # through SimpleCov.
     #
-    class Shame
+    class ZaphodFormatter
       attr_accessor :source_control
 
       def initialize()

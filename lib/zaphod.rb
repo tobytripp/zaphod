@@ -1,4 +1,4 @@
-require 'simplecov/formatter/shame'
+require 'simplecov/formatter/zaphod_formatter'
 require 'zaphod/code_change'
 require 'zaphod/source_control'
 require 'zaphod/configuration'
@@ -18,7 +18,7 @@ module Zaphod
 
     SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
       SimpleCov::Formatter::HTMLFormatter,
-      SimpleCov::Formatter::Shame
+      SimpleCov::Formatter::ZaphodFormatter
     ]
     SimpleCov.start
   end

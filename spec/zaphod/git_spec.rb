@@ -39,7 +39,7 @@ diff --git /dev/null b/spec/spec_helper.rb
 +
 +SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
 +  SimpleCov::Formatter::HTMLFormatter,
-+  SimpleCov::Formatter::Shame
++  SimpleCov::Formatter::ZaphodFormatter
 +]
 +
 +SimpleCov.start

@@ -1,10 +1,19 @@
-* Matron
+* Zaphod
 
 ** You Will Not Commit Untested Code!
 
 Catch, and publicly embarrass, untested commits into git.
 
 ** Installation
+
+*** Simple Installation
+
+#+BEGIN_SRC ruby
+  require "zaphod"
+  Zaphod.setup
+#+END_SRC
+
+*** Setup your own SimpleCov Formatters
 
 #+BEGIN_SRC ruby
   require 'simplecov-shame'
