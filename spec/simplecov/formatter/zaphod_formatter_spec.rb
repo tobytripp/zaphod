@@ -25,7 +25,10 @@ describe SimpleCov::Formatter::ZaphodFormatter do
     context "when the uncovered lines include the current changes" do
       let( :source_changes ) do
         Zaphod::ChangeSet.new([
-            Zaphod::CodeChange.new( "./lib/zaphod/spike.rb", ["      @var = \"foo\"\n"] )
+            Zaphod::CodeChange.new(
+              "./lib/zaphod/spike.rb",
+              ["      @var = \"foo\"\n"]
+              )
           ])
       end
 
@@ -46,10 +49,6 @@ describe SimpleCov::Formatter::ZaphodFormatter do
     end
 
     context "when the uncovered lines do not include the current changes" do
-      before :each do
-        stub( source_control ).changes { Hash.new }
-      end
-
       it "proceeds normally" do
         subject.format result
       end

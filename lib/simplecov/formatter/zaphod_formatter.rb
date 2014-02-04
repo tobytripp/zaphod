@@ -21,7 +21,7 @@ module SimpleCov
         uncovered_codeset = uncovered result
         changed_codeset   = source_control.changes
 
-        diff = uncovered_codeset.intersection( changed_codeset )
+        diff = changed_codeset.intersection( uncovered_codeset )
         if $DEBUG || ENV["DEBUG"]
           require "pp"
           pp(
