@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.executables      = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   spec.require_paths    = ["lib"]
 
-  spec.extra_rdoc_files = %w[README.rdoc]
+  spec.extra_rdoc_files = %w[README.org]
   spec.rdoc_options     = ["--charset=UTF-8"]
 
   spec.add_dependency "grit",      "~> 2.5"
