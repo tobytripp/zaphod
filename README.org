@@ -36,7 +36,7 @@ Catch, and publicly embarrass, untested commits into git.
      Zaphod.setup do |configuration|
        configuration.on_failure do
          Pony.mail(
-           to: 'you@example.com',
+           to: 'your-team@example.com',
            subject: "Someone is trying to commit untested code!"
            )
          raise SystemExit.new( -1 )
