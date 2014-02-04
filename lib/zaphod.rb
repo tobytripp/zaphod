@@ -1,3 +1,4 @@
+require "simplecov"
 require 'simplecov/formatter/zaphod_formatter'
 require 'zaphod/code_change'
 require 'zaphod/source_control'

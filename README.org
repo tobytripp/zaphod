@@ -1,5 +1,7 @@
 * Zaphod
 
+“I can understand that.  I wouldn't trust myself further than I could spit a rat.”
+
 ** You Will Not Commit Untested Code!
 
 Catch, and publicly embarrass, untested commits into git.
@@ -16,12 +18,42 @@ Catch, and publicly embarrass, untested commits into git.
 *** Setup your own SimpleCov Formatters
 
 #+BEGIN_SRC ruby
-  require 'simplecov-shame'
+  require "zaphod"
 
-  SimpleCov.formatter * SimpleCov::Formatter::MultiFormatter[
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
     SimpleCov::Formatter::HTMLFormatter,  # Optional, I suppose
-    SimpleCov::Formatter::Shame
+    SimpleCov::Formatter::ZaphodFormatter
   ]
 
   SimpleCov.start
+#+END_SRC
+
+** Configuration
+
+#+BEGIN_SRC ruby
+     require "pony"
+
+     Zaphod.setup do |configuration|
+       configuration.on_failure do
+         Pony.mail(
+           to: 'you@example.com',
+           subject: "Someone is trying to commit untested code!"
+           )
+         raise SystemExit.new( -1 )
+       end
+     end
+#+END_SRC
+
+#+BEGIN_SRC ruby
+    SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+      SimpleCov::Formatter::HTMLFormatter,
+      SimpleCov::Formatter::ZaphodFormatter
+    ]
+
+    Zaphod.configure do |configuration|
+      configuration.on_failure do
+        $stderr.puts "What would your mother think?"
+      end
+    end
+    SimpleCov.start
 #+END_SRC
