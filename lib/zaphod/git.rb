@@ -29,7 +29,7 @@ module Zaphod
     end
 
     def relativize_paths( patch_map )
-      patch_map.dup.each_with_object( map = {}) do |pair, h|
+      patch_map.dup.each_with_object( map = {} ) do |pair, h|
         h[".#{pair.first}"] = pair.last
       end
       map
