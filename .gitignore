@@ -9,3 +9,5 @@ lib/bundler/man
 pkg
 rdoc
 spec/reports
+.bundle
+.ruby-version
