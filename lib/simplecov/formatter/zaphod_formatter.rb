@@ -3,9 +3,8 @@ require "zaphod/change_set"
 module SimpleCov
   module Formatter
     # Send a set of File:Line tuples to a Zaphod class that intersects
-    # it with a set from the last git commit. Blow up and send an
-    # email if the intersection reveals lines in the current commit
-    # that are uncovered.
+    # it with a set from the last git commit. Blow up if the intersection
+    # reveals lines in the current commit that are uncovered.
     #
     # Aborting with a non-zero exit code should propagate properly
     # through SimpleCov.
