@@ -1,6 +1,6 @@
-require "matron/git"
+require "zaphod/git"
 
-module Matron
+module Zaphod
   class SourceControl
     attr_reader :repo
 

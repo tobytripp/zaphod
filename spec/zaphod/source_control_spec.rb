@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'pp'
 
-describe Matron::SourceControl do
+describe Zaphod::SourceControl do
   REPO_PATH = File.dirname(
     File.expand_path( File.join __FILE__, "..", ".." )
     )
@@ -16,7 +16,7 @@ describe Matron::SourceControl do
     let( :patch_map ) do
       {
         "./spec/spec_helper.rb" => "+ require 'rspec'\n",
-        "./spec/matron/source_control_spec.rb" => "+ require 'spec_helper'\n"
+        "./spec/zaphod/source_control_spec.rb" => "+ require 'spec_helper'\n"
       }
     end
     let( :repository )   { stub!.diff { patch_map }.subject }
@@ -24,7 +24,7 @@ describe Matron::SourceControl do
     subject { described_class.new repository }
 
     it do
-      subject.changes.should be_an_instance_of( Matron::ChangeSet )
+      subject.changes.should be_an_instance_of( Zaphod::ChangeSet )
       subject.changes.should_not be_empty
 
       subject.changes.each do |change|

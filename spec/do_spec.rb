@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'matron/spike'
+require 'zaphod/spike'
 
 describe "converage" do
   it "tests something" do

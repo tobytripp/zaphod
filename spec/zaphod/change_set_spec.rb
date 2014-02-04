@@ -1,14 +1,14 @@
 require 'spec_helper'
 
-require 'matron/code_change'
-require 'matron/change_set'
+require 'zaphod/code_change'
+require 'zaphod/change_set'
 
-module Matron
+module Zaphod
   describe ChangeSet do
     let( :changes ) do
       [
-        Matron::CodeChange.new( "/dev/null", ["stuff"] ),
-        Matron::CodeChange.new( "/dev/null", ["stuff"] ),
+        Zaphod::CodeChange.new( "/dev/null", ["stuff"] ),
+        Zaphod::CodeChange.new( "/dev/null", ["stuff"] ),
       ]
     end
 
@@ -28,7 +28,7 @@ module Matron
       end
 
       it "yields each change to a given block" do
-        subject.map { |c| c.class }.uniq.should == [Matron::CodeChange]
+        subject.map { |c| c.class }.uniq.should == [Zaphod::CodeChange]
       end
 
       it "returns an iterator if no block is given" do
@@ -41,7 +41,7 @@ module Matron
       let( :set1 ) do
         described_class.new([
             CodeChange.new( "/dev/null", ["baz"] ),
-            CodeChange.new( "./lib/matron/spike.rb", ["+ foo"] )
+            CodeChange.new( "./lib/zaphod/spike.rb", ["+ foo"] )
           ])
       end
       let( :set2 ) do

@@ -1,4 +1,4 @@
-module Matron
+module Zaphod
   class CodeChange
     attr_reader :path, :source
     def initialize( path, source_lines=[] )

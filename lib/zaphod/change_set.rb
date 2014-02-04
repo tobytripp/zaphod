@@ -1,7 +1,7 @@
 require "forwardable"
 require "set"
 
-module Matron
+module Zaphod
   class ChangeSet
     extend Forwardable
     attr_reader :changes

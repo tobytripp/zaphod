@@ -1,4 +1,4 @@
-module Matron
+module Zaphod
   class Configuration
     def initialize()
       self.on_failure { raise SystemExit.new( -1 ) }

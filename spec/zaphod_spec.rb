@@ -1,21 +1,21 @@
 require "spec_helper"
 
-describe Matron do
+describe Zaphod do
   describe ".configure" do
     it "takes a block" do
-      Matron.configure { :foo }
+      Zaphod.configure { :foo }
     end
 
     it "yields a configuration object" do
-      Matron.configure do |config|
-        expect( config ).to be_an_instance_of( Matron::Configuration )
+      Zaphod.configure do |config|
+        expect( config ).to be_an_instance_of( Zaphod::Configuration )
       end
     end
 
     it "yields the same object on repeated calls" do
       config = nil
-      Matron.configure { |c| config = c }
-      Matron.configure do |c|
+      Zaphod.configure { |c| config = c }
+      Zaphod.configure do |c|
         expect( c ).to be( config )
       end
     end
@@ -23,7 +23,7 @@ describe Matron do
 
   describe ".setup" do
     it "sets the SimpleCov formatter to include the Shame formatter" do
-      Matron.setup
+      Zaphod.setup
 
       expected_formatters = [
         SimpleCov::Formatter::HTMLFormatter,
@@ -36,15 +36,15 @@ describe Matron do
     it "starts simplecov" do
       mock( SimpleCov ).start
 
-      Matron.setup
+      Zaphod.setup
     end
 
     it "accepts a configuration block" do
       configuration = nil
-      Matron.setup do |config|
+      Zaphod.setup do |config|
         configuration = config
       end
-      expect( configuration ).to be_an_instance_of( Matron::Configuration )
+      expect( configuration ).to be_an_instance_of( Zaphod::Configuration )
     end
   end
 end

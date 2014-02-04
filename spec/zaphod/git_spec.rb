@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'matron/git'
+require 'zaphod/git'
 
-describe Matron::Git do
+describe Zaphod::Git do
   let( :git  ) { stub!.diff_index { DIFF }.subject }
   let( :grit ) { stub!.git { git }.subject }
 
@@ -17,7 +17,7 @@ describe Matron::Git do
     it "returns the patch split into a Hash of file => patch sets" do
       subject.diff.keys.should include(
         "./spec/spec_helper.rb",
-        "./spec/matron/source_control_spec.rb"
+        "./spec/zaphod/source_control_spec.rb"
         )
     end
   end
@@ -35,7 +35,7 @@ diff --git /dev/null b/spec/spec_helper.rb
 +# See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 +
 +require 'simplecov'
-+require 'matron'
++require 'zaphod'
 +
 +SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
 +  SimpleCov::Formatter::HTMLFormatter,
@@ -55,11 +55,11 @@ diff --git /dev/null b/spec/spec_helper.rb
 +  #     --seed 1234
 +  config.order = 'random'
 +end
-diff --git a/spec/matron/source_control_spec.rbf b/spec/matron/source_control_spec.rb
+diff --git a/spec/zaphod/source_control_spec.rbf b/spec/zaphod/source_control_spec.rb
 index 73d4e77..8ef378d 100644
---- a/spec/matron/source_control_spec.rb
-+++ b/spec/matron/source_control_spec.rb
-@@ -6,6 +6,7 @@ describe Matron::Git do
+--- a/spec/zaphod/source_control_spec.rb
++++ b/spec/zaphod/source_control_spec.rb
+@@ -6,6 +6,7 @@ describe Zaphod::Git do
      File.expand_path( File.join __FILE__, "..", ".." )
      )
 
@@ -67,7 +67,7 @@ index 73d4e77..8ef378d 100644
    describe "#initialize" do
      it "accepts a repository" do
        described_class.new Grit::Repo.new REPO_PATH
-@@ -13,10 +14,9 @@ describe Matron::Git do
+@@ -13,10 +14,9 @@ describe Zaphod::Git do
    end
 
    describe "#changes", integrated: true do

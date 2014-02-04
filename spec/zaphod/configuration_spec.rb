@@ -1,7 +1,7 @@
 require "spec_helper"
-require "matron/configuration"
+require "zaphod/configuration"
 
-describe Matron::Configuration do
+describe Zaphod::Configuration do
   subject( :config ) { described_class.new }
 
   describe "#on_failure" do

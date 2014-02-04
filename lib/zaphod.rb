@@ -1,9 +1,9 @@
 require 'simplecov/formatter/shame'
-require 'matron/code_change'
-require 'matron/source_control'
-require 'matron/configuration'
+require 'zaphod/code_change'
+require 'zaphod/source_control'
+require 'zaphod/configuration'
 
-module Matron
+module Zaphod
   def self.configuration()
     @configuration ||= Configuration.new
   end

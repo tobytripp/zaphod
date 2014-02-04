@@ -1,4 +1,4 @@
-module Matron
+module Zaphod
   class Spike
     def initialize()
       @var = "foo"

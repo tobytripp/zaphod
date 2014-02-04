@@ -1,6 +1,6 @@
 require 'grit'
 
-module Matron
+module Zaphod
   class Git
     attr_reader :repo
     attr_accessor :diff_against

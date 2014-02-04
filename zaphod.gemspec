@@ -1,13 +1,13 @@
 $:.push File.expand_path( "../lib", __FILE__ )
-require "matron/version"
+require "zaphod/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "matron"
-  spec.version = Matron::VERSION
+  spec.name = "zaphod"
+  spec.version = Zaphod::VERSION
 
   spec.authors  = ["Toby Tripp"]
   spec.email    = %q{toby.tripp+gems@gmail.com}
-  spec.homepage = %q{http://github.com/tobytripp/matron}
+  spec.homepage = %q{http://github.com/tobytripp/zaphod}
 
   spec.summary = %q{Catch untested commits and report them.}
   spec.description = %q{}
@@ -19,10 +19,7 @@ Gem::Specification.new do |spec|
   spec.extra_rdoc_files = %w[README.rdoc]
   spec.rdoc_options     = ["--charset=UTF-8"]
 
-  spec.rubyforge_project = "simplecov-shame"
-
   spec.add_dependency "grit",      "~> 2.5"
-  spec.add_dependency "pony",      "~> 1.6"
   spec.add_dependency "simplecov", "~> 0.8"
 
   spec.add_development_dependency "rake",  "~> 10.1"
