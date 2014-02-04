@@ -3,8 +3,9 @@ require "zaphod/change_set"
 module SimpleCov
   module Formatter
     # Send a set of File:Line tuples to a Zaphod class that intersects
-    # it with a set from the last git commit. Blow up if the intersection
-    # reveals lines in the current commit that are uncovered.
+    # it with a set from the last git commit. Call the failure hook if
+    # the intersection reveals lines in the current changeset that are
+    # uncovered.
     #
     # Aborting with a non-zero exit code should propagate properly
     # through SimpleCov.
@@ -21,6 +22,14 @@ module SimpleCov
         changed_codeset   = source_control.changes
 
         diff = uncovered_codeset.intersection( changed_codeset )
+        if $DEBUG || ENV["DEBUG"]
+          require "pp"
+          pp(
+            "--- UNCOVERED ---", uncovered_codeset,
+            "---  CHANGED  ---", changed_codeset,
+            "---    DIFF   ---", diff
+            )
+        end
         unless diff.empty?
           Zaphod.configuration.on_failure.call diff
         end

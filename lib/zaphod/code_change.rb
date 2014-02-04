@@ -13,11 +13,13 @@ module Zaphod
     end
 
     def hash()
-      [path, source].hash
+      [path].hash
     end
 
     def inspect()
-      "<#{self.class.name} #{path}>\n" + source.join( "\n" )
+      "#{self.class.name}.new(\"#{path}\", [\n" +
+        source.map( &:inspect ).join( ",\n" ) +
+        "])"
     end
   end
 end

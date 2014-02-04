@@ -41,7 +41,7 @@ describe SimpleCov::Formatter::ZaphodFormatter do
 
         subject.format result
 
-        expect( failed ).to eq( source_changes.changes )
+        expect( failed ).to eq( source_changes )
       end
     end
 
