@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    zaphod (1.0.0)
+    zaphod (1.0.1)
       grit (~> 2.5)
       simplecov (~> 0.8)
 
