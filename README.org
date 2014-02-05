@@ -6,6 +6,11 @@
 
 Catch, and publicly embarrass, untested commits into git.
 
+Zaphod is a formatter for SimpleCov that compares the current git changes 
+with the uncovered source reported by SimpleCov.  If any source code appears
+both in the uncovered code and git changes, Zaphod will call an #on_failure
+hook.  By default, this exits and fails the build.
+
 ** Installation
 
 *** Simple Installation
@@ -14,6 +19,11 @@ Catch, and publicly embarrass, untested commits into git.
   require "zaphod"
   Zaphod.setup
 #+END_SRC
+
+This will set up the Zaphod formatter and start SimpleCov.
+
+Be certain that SimpleCov is started before any of your project's source is loaded.
+
 
 *** Setup your own SimpleCov Formatters
 
@@ -34,12 +44,13 @@ Catch, and publicly embarrass, untested commits into git.
      require "pony"
 
      Zaphod.setup do |configuration|
+       # Action to take if uncovered changes are found:
        configuration.on_failure do
          Pony.mail(
            to: 'your-team@example.com',
            subject: "Someone is trying to commit untested code!"
            )
-         raise SystemExit.new( -1 )
+         exit -1 # Abort the build with a failing exit code
        end
      end
 #+END_SRC
@@ -53,6 +64,7 @@ Catch, and publicly embarrass, untested commits into git.
     Zaphod.configure do |configuration|
       configuration.on_failure do
         $stderr.puts "What would your mother think?"
+        exit -1
       end
     end
     SimpleCov.start
