@@ -45,10 +45,11 @@ Be certain that SimpleCov is started before any of your project's source is load
 
      Zaphod.setup do |configuration|
        # Action to take if uncovered changes are found:
-       configuration.on_failure do
+       configuration.on_failure do |uncovered_changes|
          Pony.mail(
            to: 'your-team@example.com',
-           subject: "Someone is trying to commit untested code!"
+           subject: "Someone is trying to commit untested code!",
+           body: uncovered_changes.to_s
            )
          exit -1 # Abort the build with a failing exit code
        end
@@ -62,7 +63,7 @@ Be certain that SimpleCov is started before any of your project's source is load
     ]
 
     Zaphod.configure do |configuration|
-      configuration.on_failure do
+      configuration.on_failure do |uncovered_changes|
         $stderr.puts "What would your mother think?"
         exit -1
       end
