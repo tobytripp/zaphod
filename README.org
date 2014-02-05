@@ -70,3 +70,9 @@ Be certain that SimpleCov is started before any of your project's source is load
     end
     SimpleCov.start
 #+END_SRC
+
+** Dependencies
+
+ - Grit
+ - SimpleCov
+
