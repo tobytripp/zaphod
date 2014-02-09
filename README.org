@@ -22,6 +22,19 @@ hook.  By default, this exits and fails the build.
 
 This will set up the Zaphod formatter and start SimpleCov.
 
+It is equivalent to the following:
+
+#+BEGIN_SRC ruby
+  require "zaphod"
+
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+    SimpleCov::Formatter::HTMLFormatter,  # Optional, I suppose
+    SimpleCov::Formatter::ZaphodFormatter
+  ]
+
+  SimpleCov.start
+#+END_SRC
+
 Be certain that SimpleCov is started before any of your project's source is loaded.
 
 
