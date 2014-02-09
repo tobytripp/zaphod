@@ -28,7 +28,7 @@ It is equivalent to the following:
   require "zaphod"
 
   SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
-    SimpleCov::Formatter::HTMLFormatter,  # Optional, I suppose
+    SimpleCov::Formatter::HTMLFormatter,
     SimpleCov::Formatter::ZaphodFormatter
   ]
 
