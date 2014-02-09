@@ -54,7 +54,7 @@ Be certain that SimpleCov is started before any of your project's source is load
 ** Configuration
 
 #+BEGIN_SRC ruby
-     require "pony"
+     require "pony"             # https://github.com/benprew/pony
 
      Zaphod.setup do |configuration|
        # Action to take if uncovered changes are found:
@@ -68,6 +68,8 @@ Be certain that SimpleCov is started before any of your project's source is load
        end
      end
 #+END_SRC
+
+Alternatively, you can set up Zaphod separately from SimpleCov:
 
 #+BEGIN_SRC ruby
     SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
