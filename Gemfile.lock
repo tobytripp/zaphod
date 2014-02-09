@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    zaphod (1.0.1)
+    zaphod (1.1.0)
       git (~> 1.2.6)
       simplecov (~> 0.8)
 
