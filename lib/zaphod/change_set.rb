@@ -4,11 +4,11 @@ require "set"
 module Zaphod
   class ChangeSet
     extend Forwardable
-    attr_reader :changes
+    attr_reader :changes, :user
     def_delegators :@changes, :empty?, :each, :map, :first, :length, :include?, :add, :any?
 
-    def initialize( changes=[] )
-      @changes = Set.new changes
+    def initialize( changes=[], user="unknown" )
+      @changes, @user = Set.new( changes ), user
     end
 
     def intersection( other )
@@ -22,7 +22,7 @@ module Zaphod
     end
 
     def to_s()
-      changes.map( &:to_s ).join "\n"
+      ["## #{user}", changes.map( &:to_s )].join "\n"
     end
   end
 end

@@ -40,6 +40,24 @@ describe Zaphod::Git do
     end
   end
 
+  describe "#user" do
+    it "retrieves the user info from the git config" do
+      mock( repo ).config { Hash.new }
+      subject.user
+    end
+
+    it "returns the concatenation of the user name and email" do
+      stub( repo ).config do
+        {
+          "user.name" => "Bob Shlob",
+          "user.email" => "bob@mailinator.com"
+        }
+      end
+
+      expect( subject.user ).to eq( "Bob Shlob bob@mailinator.com" )
+    end
+  end
+
   DiffFile = Struct.new :path, :patch
   DIFF = [
     DiffFile.new( "spec/spec_helper.rb", <<-EOS ),

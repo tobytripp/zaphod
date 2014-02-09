@@ -21,6 +21,11 @@ module Zaphod
       as_hash diffs
     end
 
+    def user()
+      config = repo.config
+      [config["user.name"], config["user.email"]].join " "
+    end
+
     protected
 
     def as_hash( diffs )

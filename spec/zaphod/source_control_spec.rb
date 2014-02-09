@@ -19,7 +19,14 @@ describe Zaphod::SourceControl do
         "./spec/zaphod/source_control_spec.rb" => "require 'spec_helper'\n"
       }
     end
-    let( :repository )   { stub!.diff { patch_map }.subject }
+    let( :repository ) do
+      repo = Object.new
+      stub( repo ) do |allow|
+        allow.diff { patch_map }
+        allow.user { "bob smith smith@mailinator.com" }
+      end
+      repo
+    end
 
     subject { described_class.new repository }
 
@@ -40,6 +47,10 @@ describe Zaphod::SourceControl do
       subject.changes.first.source.length.should eq(
         patch_map["./spec/spec_helper.rb"].length
         )
+    end
+
+    it "provides the change set with the name of the alleged slacker" do
+      expect( subject.changes.user ).to eq( "bob smith smith@mailinator.com" )
     end
   end
 end

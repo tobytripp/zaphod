@@ -13,9 +13,10 @@ module Zaphod
     end
 
     def changes()
-      ChangeSet.new repo.diff.map { |path, diff|
+      cc = repo.diff.map { |path, diff|
         CodeChange.new File.expand_path( path ), diff
       }
+      ChangeSet.new cc, repo.user
     end
   end
 end

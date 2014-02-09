@@ -20,6 +20,10 @@ module Zaphod
       it "rejects duplicates" do
         expect( described_class.new( changes ) ).to have( 1 ).item
       end
+
+      it "accepts a user string" do
+        described_class.new changes, "bob foo"
+      end
     end
 
     describe "iteration" do
@@ -94,7 +98,7 @@ module Zaphod
       end
 
       it do
-        expect( set.to_s ).to eq( set.changes.map( &:to_s ).join( "\n" ) )
+        expect( set.to_s ).to eq( ["## unknown", set.changes.map( &:to_s )].join( "\n" ) )
       end
     end
   end
