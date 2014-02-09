@@ -73,6 +73,6 @@ Be certain that SimpleCov is started before any of your project's source is load
 
 ** Dependencies
 
- - Grit
+ - Git
  - SimpleCov
 
