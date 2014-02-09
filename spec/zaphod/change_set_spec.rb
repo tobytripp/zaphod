@@ -84,5 +84,18 @@ module Zaphod
         end
       end
     end
+
+    describe "#to_s" do
+      subject( :set ) do
+        described_class.new([
+            CodeChange.new( "/dev/null", ["baz"] ),
+            CodeChange.new( "./lib/zaphod/spike.rb", ["foo"] )
+          ])
+      end
+
+      it do
+        expect( set.to_s ).to eq( set.changes.map( &:to_s ).join( "\n" ) )
+      end
+    end
   end
 end

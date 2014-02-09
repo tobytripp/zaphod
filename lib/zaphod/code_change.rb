@@ -21,5 +21,9 @@ module Zaphod
         source.map( &:inspect ).join( ",\n" ) +
         "])"
     end
+
+    def to_s()
+      ["### #{path}", source.join].join "\n"
+    end
   end
 end

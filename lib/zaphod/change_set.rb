@@ -20,5 +20,9 @@ module Zaphod
     def ==( other )
       changes == other.changes
     end
+
+    def to_s()
+      changes.map( &:to_s ).join "\n"
+    end
   end
 end

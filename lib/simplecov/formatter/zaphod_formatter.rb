@@ -27,9 +27,9 @@ module SimpleCov
           pp(
             "---  UNCOVERED   ---", uncovered_codeset,
             "---   CHANGED    ---", changed_codeset,
-            "--- INTERSECTION ---", diff,
-            "FAIL?: #{! diff.empty?}"
+            "--- INTERSECTION ---"
             )
+          puts diff.to_s, "FAIL?: #{! diff.empty?}"
         end
 
         unless diff.empty?

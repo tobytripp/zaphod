@@ -98,5 +98,26 @@ module Zaphod
       end
     end
 
+    describe "#to_s" do
+      subject( :change ) do
+        CodeChange.new(
+          "/app/controllers/tags_controller.rb", [
+            "\n",
+            "  def uncovered_method\n",
+            "    puts \"ha HA! I'm a cheater!\"\n",
+            "  end\n"
+          ])
+      end
+
+      it do
+        expect( change.to_s ).to eq( <<EOS )
+### /app/controllers/tags_controller.rb
+
+  def uncovered_method
+    puts "ha HA! I'm a cheater!"
+  end
+EOS
+      end
+    end
   end
 end
