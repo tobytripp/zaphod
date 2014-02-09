@@ -91,11 +91,6 @@ module Zaphod
       it "is the same for two changes that are eql" do
         expect( change1.hash ).to eq( change2.hash )
       end
-
-      it "differs for two changes that have inequal sources" do
-        pending "breaks Set intersection... think harder on this"
-        expect( change2.hash ).to_not eq( change3.hash )
-      end
     end
 
     describe "#to_s" do

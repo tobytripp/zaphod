@@ -2,8 +2,8 @@
 require 'zaphod'
 Zaphod.setup do |config|
   config.on_failure do
-    puts "Untested CHANGES!"
-    exit -1
+    puts "Untested CHANGES! You damned hypocrite!"
+    exit( -1 ) unless RSpec.configuration.filter.keys.include?( :line_numbers )
   end
 end
 
