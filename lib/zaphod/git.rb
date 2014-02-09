@@ -1,4 +1,5 @@
-require 'grit'
+require "git"
+require "logger"
 
 module Zaphod
   class Git
@@ -6,7 +7,7 @@ module Zaphod
     attr_accessor :diff_against
 
     def self.from_path( path )
-      new Grit::Repo.new( path )
+      new ::Git.open( path, log: Logger.new( "log/zaphod-git.log" ) )
     end
 
     def initialize( repository, diff_against="HEAD" )
@@ -15,22 +16,28 @@ module Zaphod
     end
 
     def diff()
-      diffs = repo.git.diff_index( { p: true }, diff_against ).
-        split( /^diff --git .* b(.*)$/ )
-
+      path  = repo.dir.path
+      diffs = repo.diff( diff_against, path )
       as_hash diffs
     end
 
     protected
 
-    def as_hash( diff )
-      diffs = diff.drop_while( &:empty? )
-      relativize_paths Hash[*diffs]
+    def as_hash( diffs )
+      pairs  = diffs.flat_map { |diff_file|
+        [diff_file.path, additions( diff_file.patch )]
+      }
+      relativize_paths Hash[*pairs]
+    end
+
+    def additions( patch )
+      patch.lines.select { |l| l =~ /^[+][^+]/ }.
+        map { |l| l.gsub( /^[+]/, "" ) }
     end
 
     def relativize_paths( patch_map )
-      patch_map.dup.each_with_object( map = {} ) do |pair, h|
-        h[".#{pair.first}"] = pair.last
+      patch_map.each_with_object( map = {} ) do |pair, h|
+        h["./#{pair.first}"] = pair.last
       end
       map
     end

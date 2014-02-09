@@ -33,7 +33,12 @@ describe SimpleCov::Formatter::ZaphodFormatter do
       end
 
       before :each do
+        @original_failure = Zaphod.configuration.on_failure
         stub( source_control ).changes { source_changes }
+      end
+
+      after :each do
+        Zaphod.configuration.on_failure &@original_failure
       end
 
       it "runs the configured on_failure action, passing uncovered changes" do

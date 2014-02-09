@@ -19,14 +19,14 @@ Gem::Specification.new do |spec|
   spec.extra_rdoc_files = %w[README.org]
   spec.rdoc_options     = ["--charset=UTF-8"]
 
-  spec.add_dependency "grit",      "~> 2.5"
+  spec.add_dependency "git",       "~> 1.2.6"
   spec.add_dependency "simplecov", "~> 0.8"
 
   spec.add_development_dependency "rake",  "~> 10.1"
   spec.add_development_dependency "rr",    "~> 1.1"
   spec.add_development_dependency "rspec", "~> 2.14"
   spec.add_development_dependency "pry"
-  spec.add_development_dependency "guard", "~> 2.3"
+  spec.add_development_dependency "guard", "~> 2.4"
   spec.add_development_dependency "guard-rspec", "~> 4.2"
   spec.add_development_dependency "guard-bundler"
   spec.add_development_dependency "guard-shell"

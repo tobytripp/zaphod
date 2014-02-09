@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     zaphod (1.0.1)
-      grit (~> 2.5)
+      git (~> 1.2.6)
       simplecov (~> 0.8)
 
 GEM
@@ -15,11 +15,8 @@ GEM
     docile (1.1.2)
     ffi (1.9.3)
     formatador (0.2.4)
-    grit (2.5.0)
-      diff-lcs (~> 1.1)
-      mime-types (~> 1.15)
-      posix-spawn (~> 0.3.6)
-    guard (2.3.0)
+    git (1.2.6)
+    guard (2.4.0)
       formatador (>= 0.2.4)
       listen (~> 2.1)
       lumberjack (~> 1.0)
@@ -33,16 +30,14 @@ GEM
       rspec (>= 2.14, < 4.0)
     guard-shell (0.6.1)
       guard (>= 1.1.0)
-    listen (2.4.0)
+    listen (2.4.1)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
     lumberjack (1.0.4)
     method_source (0.8.2)
-    mime-types (1.25.1)
     multi_json (1.8.4)
-    posix-spawn (0.3.8)
-    pry (0.9.12.4)
+    pry (0.9.12.6)
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
@@ -73,7 +68,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  guard (~> 2.3)
+  guard (~> 2.4)
   guard-bundler
   guard-rspec (~> 4.2)
   guard-shell

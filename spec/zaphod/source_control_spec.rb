@@ -8,15 +8,15 @@ describe Zaphod::SourceControl do
 
   describe "#initialize" do
     it "accepts a repository" do
-      described_class.new Grit::Repo.new REPO_PATH
+      described_class.new Git.open( REPO_PATH )
     end
   end
 
   describe "#changes" do
     let( :patch_map ) do
       {
-        "./spec/spec_helper.rb" => "+ require 'rspec'\n",
-        "./spec/zaphod/source_control_spec.rb" => "+ require 'spec_helper'\n"
+        "./spec/spec_helper.rb" => "require 'rspec'\n",
+        "./spec/zaphod/source_control_spec.rb" => "require 'spec_helper'\n"
       }
     end
     let( :repository )   { stub!.diff { patch_map }.subject }
@@ -38,12 +38,8 @@ describe Zaphod::SourceControl do
 
     it "passes the additions to each code set" do
       subject.changes.first.source.length.should eq(
-        patch_map["./spec/spec_helper.rb"].lines.select { |l| l =~ /^[+][^+]/ }.to_a.size
+        patch_map["./spec/spec_helper.rb"].length
         )
-    end
-
-    it "strips the plusses off the lines" do
-      subject.changes.first.source.first.should_not start_with( "+" )
     end
   end
 end

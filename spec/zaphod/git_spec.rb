@@ -2,15 +2,21 @@ require 'spec_helper'
 require 'zaphod/git'
 
 describe Zaphod::Git do
-  let( :git  ) { stub!.diff_index { DIFF }.subject }
-  let( :grit ) { stub!.git { git }.subject }
+  let( :path ) { "." }
+  let( :repo ) do
+    gitrb = Object.new
+    stub( gitrb ) do |allow|
+      allow.dir.stub!.path       { path }
+      allow.diff( "HEAD", path ) { DIFF }
+    end
+    gitrb
+  end
 
-  subject { described_class.new grit }
+  subject { described_class.new repo }
 
   describe "to get current changes in the git repository" do
-    it "calls :diff_index on the Grit git object" do
-      mock( git ).diff_index({ p: true }, "HEAD") { DIFF }
-
+    it "calls #diff on the Git repository object" do
+      mock( repo ).diff( "HEAD", "." ) { DIFF }
       subject.diff
     end
 
@@ -20,9 +26,23 @@ describe Zaphod::Git do
         "./spec/zaphod/source_control_spec.rb"
         )
     end
+
+    it "includes only the additions from the patch" do
+      additions = DIFF.first.patch.lines.select { |l| l =~ /^[+][^+]/ }
+      expect( subject.diff["./spec/spec_helper.rb"].size ).
+        to eq( additions.size )
+    end
+
+    it "strips the '+'" do
+      subject.diff.each do |path, additions|
+        expect( additions.all? { |l| ! l.start_with?( "+" ) } ).to be_true
+      end
+    end
   end
 
-  DIFF = <<-EOS
+  DiffFile = Struct.new :path, :patch
+  DIFF = [
+    DiffFile.new( "spec/spec_helper.rb", <<-EOS ),
 diff --git /dev/null b/spec/spec_helper.rb
 --- /dev/null
 +++ b/spec/spec_helper.rb
@@ -55,6 +75,8 @@ diff --git /dev/null b/spec/spec_helper.rb
 +  #     --seed 1234
 +  config.order = 'random'
 +end
+EOS
+    DiffFile.new( "spec/zaphod/source_control_spec.rb", <<-EOS ),
 diff --git a/spec/zaphod/source_control_spec.rbf b/spec/zaphod/source_control_spec.rb
 index 73d4e77..8ef378d 100644
 --- a/spec/zaphod/source_control_spec.rb
@@ -80,5 +102,6 @@ index 73d4e77..8ef378d 100644
 +    let( :repository )   { stub git: git_native }
 
      let( :git )          { described_class.new repository }
-  EOS
+EOS
+  ]
 end

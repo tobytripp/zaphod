@@ -1,7 +1,11 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
-
 require 'zaphod'
-Zaphod.setup
+Zaphod.setup do |config|
+  config.on_failure do
+    puts "Untested CHANGES!"
+    exit -1
+  end
+end
 
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true

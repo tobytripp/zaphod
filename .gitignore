@@ -11,3 +11,4 @@ rdoc
 spec/reports
 .bundle
 .ruby-version
+log/*

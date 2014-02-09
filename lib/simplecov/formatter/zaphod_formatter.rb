@@ -25,11 +25,13 @@ module SimpleCov
         if $DEBUG || ENV["DEBUG"]
           require "pp"
           pp(
-            "--- UNCOVERED ---", uncovered_codeset,
-            "---  CHANGED  ---", changed_codeset,
-            "---    DIFF   ---", diff
+            "---  UNCOVERED   ---", uncovered_codeset,
+            "---   CHANGED    ---", changed_codeset,
+            "--- INTERSECTION ---", diff,
+            "FAIL?: #{! diff.empty?}"
             )
         end
+
         unless diff.empty?
           Zaphod.configuration.on_failure.call diff
         end

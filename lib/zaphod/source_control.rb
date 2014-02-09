@@ -14,18 +14,8 @@ module Zaphod
 
     def changes()
       ChangeSet.new repo.diff.map { |path, diff|
-        CodeChange.new File.expand_path( path ), additions_from( diff.lines )
+        CodeChange.new File.expand_path( path ), diff
       }
-    end
-
-    def additions_from( lines )
-      lines.
-        select { |l| addition? l }.
-        map    { |l| l.gsub( /^[+]/, "" ) }
-    end
-
-    def addition?( line )
-      line =~ /^[+][^+]/
     end
   end
 end
