@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.rdoc_options     = ["--charset=UTF-8"]
 
   spec.add_dependency "git",       "~> 1.2.6"
-  spec.add_dependency "simplecov", "~> 0.8"
+  spec.add_dependency "simplecov", "~> 0.9"
 
   spec.add_development_dependency "rake",  "~> 10.1"
   spec.add_development_dependency "rr",    "~> 1.1"
