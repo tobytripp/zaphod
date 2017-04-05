@@ -16,7 +16,7 @@ module Zaphod
     require "simplecov"
     yield configuration if block_given?
 
-    SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+    SimpleCov.formatters = [
       SimpleCov::Formatter::HTMLFormatter,
       SimpleCov::Formatter::ZaphodFormatter
     ]
