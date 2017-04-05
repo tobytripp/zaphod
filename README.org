@@ -27,7 +27,7 @@ It is equivalent to the following:
 #+BEGIN_SRC ruby
   require "zaphod"
 
-  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+  SimpleCov.formatters = [
     SimpleCov::Formatter::HTMLFormatter,
     SimpleCov::Formatter::ZaphodFormatter
   ]
@@ -43,7 +43,7 @@ Be certain that SimpleCov is started before any of your project's source is load
 #+BEGIN_SRC ruby
   require "zaphod"
 
-  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+  SimpleCov.formatters = [
     SimpleCov::Formatter::HTMLFormatter,  # Optional, I suppose
     SimpleCov::Formatter::ZaphodFormatter
   ]
@@ -72,7 +72,7 @@ Be certain that SimpleCov is started before any of your project's source is load
 Alternatively, you can set up Zaphod separately from SimpleCov:
 
 #+BEGIN_SRC ruby
-    SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+    SimpleCov.formatters = [
       SimpleCov::Formatter::HTMLFormatter,
       SimpleCov::Formatter::ZaphodFormatter
     ]
